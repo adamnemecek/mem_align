@@ -37,10 +37,10 @@ impl<T> MemAlign<T> {
         self.capacity
     }
 
-    pub fn remained(&self) -> usize {
+    /// remainder in bytes
+    pub fn remainder(&self) -> usize {
         self.remainder
     }
-
 
     pub fn is_valid(&self) -> bool {
         (Self::element_size() * self.capacity) + self.remainder == self.byte_size
@@ -91,7 +91,8 @@ fn test_paged_alloc() {
     // let page_size = 4096;
     let alloc = MemAlign::<TestStruct>::new(count);
     assert!(alloc.capacity() == 227);
-    assert!(alloc.remained() == 10);
+    assert!(alloc.remainder() == 10);
+    assert!(alloc.byte_size() == 4096);
     // println!("{}", alloc.is_valid());
 
     // dbg!("{}", alloc);
